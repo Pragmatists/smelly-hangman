@@ -41,18 +41,26 @@ describe('HangmanController', function () {
       expect(scope.secretWord).toBeUndefined();
     });
 
+    it('build secret word from one of available words', function () {
+      availableWordsAre(['pie']);
+      initHangmanController();
+      http.flush();
+
+      expect(scope.secretWord).toEqual([
+        {name: 'p', chosen: false},
+        {name: 'i', chosen: false},
+        {name: 'e', chosen: false}
+      ]);
+    });
+
   });
   describe('on reset', function () {
 
-    beforeEach(function () {
-      http.whenGET('/hangman/words').respond(200, {
-        words: ['apple']
-      });
+    it('neither wins nor lost', function () {
+      anyWordsAreAvailable();
       initHangmanController();
       http.flush();
-    });
 
-    it('neither wins nor lost', function () {
       scope.reset();
 
       expect(scope.win).toBeFalsy();
@@ -60,15 +68,37 @@ describe('HangmanController', function () {
     });
 
     it('allows 6 misses', function () {
+      anyWordsAreAvailable();
+      initHangmanController();
+      http.flush();
+
       scope.reset();
 
       expect(scope.missesAllowed).toBe(6);
     });
 
-    it('set misses to 0', function () {
+    it('sets misses to 0', function () {
+      anyWordsAreAvailable();
+      initHangmanController();
+      http.flush();
+
       scope.reset();
 
       expect(scope.numMisses).toBe(0);
+    });
+
+    it('build secret word from one of available words', function () {
+      availableWordsAre(['pie']);
+      initHangmanController();
+      http.flush();
+
+      scope.reset();
+
+      expect(scope.secretWord).toEqual([
+        {name: 'p', chosen: false},
+        {name: 'i', chosen: false},
+        {name: 'e', chosen: false}
+      ]);
     });
 
   });
@@ -84,6 +114,15 @@ describe('HangmanController', function () {
     ]);
   }));
 
+  function anyWordsAreAvailable() {
+    availableWordsAre(['apple']);
+  }
+
+  function availableWordsAre(words) {
+    http.whenGET('/hangman/words').respond(200, {
+      words: words
+    });
+  }
 
   function injectDependencies() {
     inject(function ($httpBackend) {
