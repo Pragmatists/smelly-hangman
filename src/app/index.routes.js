@@ -14,7 +14,9 @@
       })
       .state('hangman',{
           url: '/hangman',
-        templateUrl: 'app/hangman/hangman.html'
+        templateUrl: 'app/hangman/hangman.html',
+        controllerAs: 'hangman',
+        controller: 'HangmanController'
       });
 
       $urlRouterProvider.otherwise('/login');

@@ -106,13 +106,37 @@ describe('HangmanController', function () {
   it('knows available letters', inject(function (language) {
     spyOn(language, 'alphabet').and.returnValue(['a', 'b']);
 
-    initHangmanController();
+    var hangman = initHangmanController();
 
-    expect(scope.letters).toEqual([
+    expect(hangman.letters).toEqual([
       {name: 'a', chosen: false},
       {name: 'b', chosen: false}
     ]);
   }));
+
+  describe('on guess trial', function () {
+
+    it('increases misses if guess was wrong', function () {
+      availableWordsAre('apple');
+      var hangman = initHangmanController();
+      http.flush();
+
+      hangman.tryLetter(notChosenLetter('x'));
+
+      expect(hangman.numMisses).toBe(1);
+    });
+
+    it('does not increase misses if guess was correect', function () {
+      availableWordsAre(['apple']);
+      var hangman = initHangmanController();
+      http.flush();
+
+      hangman.tryLetter(notChosenLetter('p'));
+
+      expect(hangman.numMisses).toBe(0);
+    });
+
+  });
 
   function anyWordsAreAvailable() {
     availableWordsAre(['apple']);
@@ -122,6 +146,13 @@ describe('HangmanController', function () {
     http.whenGET('/hangman/words').respond(200, {
       words: words
     });
+  }
+
+  function notChosenLetter(letter) {
+    return {
+      name: letter,
+      chosen: false
+    };
   }
 
   function injectDependencies() {

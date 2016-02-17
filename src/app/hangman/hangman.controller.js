@@ -3,6 +3,8 @@ angular
   .controller('HangmanController', function ($http, $scope, language) {
     var vm = this;
 
+    vm.tryLetter = tryLetter;
+
     vm.missesAllowed = 6;
 
     var words = [];
@@ -17,7 +19,7 @@ angular
     makeLettersAbc();
 
     vm.reset = function () {
-      _.each($scope.letters, function (letter) {
+      _.each(vm.letters, function (letter) {
         letter.chosen = false;
       });
 
@@ -27,7 +29,7 @@ angular
       vm.lost = false;
     };
 
-    $scope.try = function (guess) {
+    function tryLetter(guess) {
       guess.chosen = true;
       var found = false;
       _.each(vm.secretWord, function (letter) {
@@ -42,12 +44,11 @@ angular
       }
 
       checkForEndOfGame();
-    };
-
+    }
 
     function makeLettersAbc() {
       var alphabet = language.alphabet();
-      $scope.letters = makeLetters(alphabet);
+      vm.letters = makeLetters(alphabet);
     }
 
     function makeLetters(word) {

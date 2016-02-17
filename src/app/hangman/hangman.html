@@ -7,20 +7,20 @@
 
       <div class="secretWord">
         <ul class="list-inline">
-          <li ng-repeat="letter in secretWord">
+          <li ng-repeat="letter in hangman.secretWord">
             <span ng-hide="letter.chosen"> _ </span>
             <span ng-show="letter.chosen"> {{ letter.name }} </span>
           </li>
         </ul>
       </div>
 
-      <div class="letters" ng-hide="win || lost">
+      <div class="letters" ng-hide="hangman.win || hangman.lost">
         <ul class="list-inline">
 
-          <li ng-repeat="letter in letters">
+          <li ng-repeat="letter in hangman.letters">
             <button class="btn-primary letter-button"
                     ng-disabled="letter.chosen"
-                    ng-click="try(letter);">
+                    ng-click="tryLetter.try(letter);">
               {{letter.name}}
             </button>
           </li>
@@ -29,14 +29,14 @@
       </div>
 
       <p>
-        <span ng-hide="win || lost"> You have {{ missesAllowed - numMisses }} guesses remaining. </span>
-        <span ng-show="win"> Well done! </span>
-        <span ng-show="lost"> Sorry, please try again!. </span>
+        <span ng-hide="hangman.win || hangman.lost"> You have {{ hangman.missesAllowed - hangman.numMisses }} guesses remaining. </span>
+        <span ng-show="hangman.win"> Well done! </span>
+        <span ng-show="hangman.lost"> Sorry, please try again!. </span>
       </p>
 
     </div>
 
-    <button ng-click="reset();"
+    <button ng-click="hangman.reset();"
             class="btn btn-primary btn-large">
       New Game
     </button>
