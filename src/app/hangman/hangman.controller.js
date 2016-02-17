@@ -14,35 +14,7 @@ angular
         vm.reset();
       });
 
-    var makeLetters = function (word) {
-      return _.map(word.split(''), function (letter) {
-        return {name: letter, chosen: false};
-      });
-    };
-
-    var checkForEndOfGame = function () {
-      $scope.win = _.reduce($scope.secretWord, function (memo, letter) {
-        return memo && letter.chosen;
-      }, true);
-
-      if ($scope.win === false && $scope.numMisses == $scope.missesAllowed) {
-        $scope.lost = true;
-        _.each($scope.secretWord, function (letter) {
-          letter.chosen = true;
-        });
-      }
-    };
-
-    $scope.makeLettersAbc = function () {
-      var alphabet = language.alphabet();
-      var response = [];
-      for (var i in alphabet) {
-        var temp = {name: alphabet[i], chosen: false};
-        response.push(temp);
-      }
-      $scope.letters = response;
-    };
-    $scope.makeLettersAbc();
+    makeLettersAbc();
 
     vm.reset = function () {
       _.each($scope.letters, function (letter) {
@@ -72,5 +44,29 @@ angular
       checkForEndOfGame();
     };
 
+
+    function makeLettersAbc() {
+      var alphabet = language.alphabet();
+      $scope.letters = makeLetters(alphabet);
+    }
+
+    function makeLetters(word) {
+      return _.map(word, function (letter) {
+        return {name: letter, chosen: false};
+      });
+    }
+
+    function checkForEndOfGame() {
+
+      $scope.win = _.reduce($scope.secretWord, function (memo, letter) {
+        return memo && letter.chosen;
+      }, true);
+      if ($scope.win === false && $scope.numMisses == $scope.missesAllowed) {
+        $scope.lost = true;
+        _.each($scope.secretWord, function (letter) {
+          letter.chosen = true;
+        });
+      }
+    }
 
   });
