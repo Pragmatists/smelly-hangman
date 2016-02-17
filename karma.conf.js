@@ -44,6 +44,8 @@ module.exports = function(config) {
   var configuration = {
     files: listFiles(),
 
+    exclude: ['**/transients/**/*.js'],
+
     singleRun: true,
 
     autoWatch: false,

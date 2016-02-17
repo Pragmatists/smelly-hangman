@@ -7,7 +7,6 @@
       'ngMessages',
       'ui.router',
       'ui.bootstrap',
-      'tdd.transients',
       /* app */
       'tdd.language'
     ]);
