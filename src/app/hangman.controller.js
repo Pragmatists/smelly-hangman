@@ -1,6 +1,6 @@
 angular
   .module('tdd')
-  .controller('hangmanController', function ($http, $scope, language) {
+  .controller('HangmanController', function ($http, $scope, language) {
 
     var words = [];
 

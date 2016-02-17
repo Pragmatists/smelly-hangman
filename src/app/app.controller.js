@@ -1,3 +1,4 @@
-angular.module('tdd')
+angular
+  .module('tdd')
   .controller('AppController', function () {
   });
