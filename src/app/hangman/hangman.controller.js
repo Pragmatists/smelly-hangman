@@ -3,7 +3,7 @@ angular
   .controller('HangmanController', function ($http, $scope, language) {
     var vm = this;
 
-    $scope.missesAllowed = 6;
+    vm.missesAllowed = 6;
 
     var words = [];
 
@@ -21,16 +21,16 @@ angular
         letter.chosen = false;
       });
 
-      $scope.secretWord = makeLetters(_.sample(words));
-      $scope.numMisses = 0;
-      $scope.win = false;
-      $scope.lost = false;
+      vm.secretWord = makeLetters(_.sample(words));
+      vm.numMisses = 0;
+      vm.win = false;
+      vm.lost = false;
     };
 
     $scope.try = function (guess) {
       guess.chosen = true;
       var found = false;
-      _.each($scope.secretWord, function (letter) {
+      _.each(vm.secretWord, function (letter) {
         if (guess.name.toUpperCase() == letter.name.toUpperCase()) {
           letter.chosen = true;
           found = true;
@@ -38,7 +38,7 @@ angular
       });
 
       if (found == false) {
-        $scope.numMisses++;
+        vm.numMisses++;
       }
 
       checkForEndOfGame();
@@ -58,12 +58,12 @@ angular
 
     function checkForEndOfGame() {
 
-      $scope.win = _.reduce($scope.secretWord, function (memo, letter) {
+      vm.win = _.reduce(vm.secretWord, function (memo, letter) {
         return memo && letter.chosen;
       }, true);
-      if ($scope.win === false && $scope.numMisses == $scope.missesAllowed) {
-        $scope.lost = true;
-        _.each($scope.secretWord, function (letter) {
+      if (vm.win === false && vm.numMisses == vm.missesAllowed) {
+        vm.lost = true;
+        _.each(vm.secretWord, function (letter) {
           letter.chosen = true;
         });
       }

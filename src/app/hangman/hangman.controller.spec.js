@@ -17,36 +17,36 @@ describe('HangmanController', function () {
   describe('on init', function () {
 
     it('neither wins nor lost', function () {
-      initHangmanController();
+      var hangman = initHangmanController();
 
-      expect(scope.win).toBeFalsy();
-      expect(scope.lost).toBeFalsy();
+      expect(hangman.win).toBeFalsy();
+      expect(hangman.lost).toBeFalsy();
     });
 
     it('allows 6 misses', function () {
-      initHangmanController();
+      var hangman = initHangmanController();
 
-      expect(scope.missesAllowed).toBe(6);
+      expect(hangman.missesAllowed).toBe(6);
     });
 
     it('does not know about misses', function () {
-      initHangmanController();
+      var hangman = initHangmanController();
 
-      expect(scope.numMisses).toBeUndefined();
+      expect(hangman.numMisses).toBeUndefined();
     });
 
     it('does not know about secret word', function () {
-      initHangmanController();
+      var hangman = initHangmanController();
 
-      expect(scope.secretWord).toBeUndefined();
+      expect(hangman.secretWord).toBeUndefined();
     });
 
     it('build secret word from one of available words', function () {
       availableWordsAre(['pie']);
-      initHangmanController();
+      var hangman = initHangmanController();
       http.flush();
 
-      expect(scope.secretWord).toEqual([
+      expect(hangman.secretWord).toEqual([
         {name: 'p', chosen: false},
         {name: 'i', chosen: false},
         {name: 'e', chosen: false}
@@ -63,8 +63,8 @@ describe('HangmanController', function () {
 
       hangman.reset();
 
-      expect(scope.win).toBeFalsy();
-      expect(scope.lost).toBeFalsy();
+      expect(hangman.win).toBeFalsy();
+      expect(hangman.lost).toBeFalsy();
     });
 
     it('allows 6 misses', function () {
@@ -74,7 +74,7 @@ describe('HangmanController', function () {
 
       hangman.reset();
 
-      expect(scope.missesAllowed).toBe(6);
+      expect(hangman.missesAllowed).toBe(6);
     });
 
     it('sets misses to 0', function () {
@@ -84,7 +84,7 @@ describe('HangmanController', function () {
 
       hangman.reset();
 
-      expect(scope.numMisses).toBe(0);
+      expect(hangman.numMisses).toBe(0);
     });
 
     it('build secret word from one of available words', function () {
@@ -94,7 +94,7 @@ describe('HangmanController', function () {
 
       hangman.reset();
 
-      expect(scope.secretWord).toEqual([
+      expect(hangman.secretWord).toEqual([
         {name: 'p', chosen: false},
         {name: 'i', chosen: false},
         {name: 'e', chosen: false}
