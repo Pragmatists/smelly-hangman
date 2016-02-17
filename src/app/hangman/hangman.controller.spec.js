@@ -4,7 +4,7 @@ describe('HangmanController', function () {
     , scope
     , http;
 
-  beforeEach(module('tdd'));
+  beforeEach(module('tdd.hangman', 'tdd.language'));
   beforeEach(injectDependencies);
   beforeEach(createControllerInitializer);
 

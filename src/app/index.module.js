@@ -8,6 +8,7 @@
       'ui.router',
       'ui.bootstrap',
       /* app */
+      'tdd.hangman',
       'tdd.language'
     ]);
 

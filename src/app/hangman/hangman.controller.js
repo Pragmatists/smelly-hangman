@@ -1,6 +1,8 @@
 angular
-  .module('tdd')
+  .module('tdd.hangman')
   .controller('HangmanController', function ($http, $scope, language) {
+
+    $scope.missesAllowed = 6;
 
     var words = [];
 
@@ -10,8 +12,6 @@ angular
         words = availableWords;
         $scope.reset();
       });
-
-    $scope.missesAllowed = 6;
 
     var makeLetters = function (word) {
       return _.map(word.split(''), function (letter) {
@@ -48,7 +48,7 @@ angular
         letter.chosen = false;
       });
 
-      $scope.secretWord = makeLetters(words[Math.floor(Math.random() * words.length)]);
+      $scope.secretWord = makeLetters(_.sample(words));
       $scope.numMisses = 0;
       $scope.win = false;
       $scope.lost = false;
