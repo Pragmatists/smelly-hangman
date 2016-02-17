@@ -4,17 +4,12 @@ angular
 
     var words = [];
 
-    var AskForWords = function (user, password, $state) {
-      $http.get('/hangman/words').then(function (result) {
-        words = result.data.words;
-      }, function (result) {
-        conole.log("no words has been found");
-      }).then(function () {
+    language
+      .words()
+      .then(function (availableWords) {
+        words = availableWords;
         $scope.reset();
       });
-    };
-
-    AskForWords();
 
     $scope.missesAllowed = 6;
 
