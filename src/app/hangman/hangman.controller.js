@@ -1,6 +1,7 @@
 angular
   .module('tdd.hangman')
   .controller('HangmanController', function ($http, $scope, language) {
+    var vm = this;
 
     $scope.missesAllowed = 6;
 
@@ -10,7 +11,7 @@ angular
       .words()
       .then(function (availableWords) {
         words = availableWords;
-        $scope.reset();
+        vm.reset();
       });
 
     var makeLetters = function (word) {
@@ -43,7 +44,7 @@ angular
     };
     $scope.makeLettersAbc();
 
-    $scope.reset = function () {
+    vm.reset = function () {
       _.each($scope.letters, function (letter) {
         letter.chosen = false;
       });

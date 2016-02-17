@@ -58,10 +58,10 @@ describe('HangmanController', function () {
 
     it('neither wins nor lost', function () {
       anyWordsAreAvailable();
-      initHangmanController();
+      var hangman = initHangmanController();
       http.flush();
 
-      scope.reset();
+      hangman.reset();
 
       expect(scope.win).toBeFalsy();
       expect(scope.lost).toBeFalsy();
@@ -69,30 +69,30 @@ describe('HangmanController', function () {
 
     it('allows 6 misses', function () {
       anyWordsAreAvailable();
-      initHangmanController();
+      var hangman = initHangmanController();
       http.flush();
 
-      scope.reset();
+      hangman.reset();
 
       expect(scope.missesAllowed).toBe(6);
     });
 
     it('sets misses to 0', function () {
       anyWordsAreAvailable();
-      initHangmanController();
+      var hangman = initHangmanController();
       http.flush();
 
-      scope.reset();
+      hangman.reset();
 
       expect(scope.numMisses).toBe(0);
     });
 
     it('build secret word from one of available words', function () {
       availableWordsAre(['pie']);
-      initHangmanController();
+      var hangman = initHangmanController();
       http.flush();
 
-      scope.reset();
+      hangman.reset();
 
       expect(scope.secretWord).toEqual([
         {name: 'p', chosen: false},
