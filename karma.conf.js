@@ -43,6 +43,7 @@ module.exports = function(config) {
 
   var configuration = {
     files: listFiles(),
+    exclude : [path.join(conf.paths.src, '/app/transients/**/*.js')],
 
     singleRun: true,
 

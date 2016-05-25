@@ -5,8 +5,7 @@
     .module('tdd', [
       'ngMessages',
       'ui.router',
-      'ui.bootstrap',
-      'tdd.transients'
+      'ui.bootstrap'
     ]);
 
 })();
